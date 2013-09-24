@@ -1,0 +1,129 @@
+<html>
+    <head>
+	    <title>Web App Test</title>
+		<!-- Bootstrap core CSS -->
+		<link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">
+		
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script>
+		     google.load("jquery", "1.6.2");
+			 window.onload = popLoad;
+			 window.onpopstate = popState;
+			 var state ;
+
+		     function pushStateClick(state_name,title)
+			 {
+			      state = {};
+				  state.state_name = state_name;
+				  state.title = title;	
+                  saveState(state);					  
+                  displayState(state);				  
+			 }
+			 
+			 function saveState(state)
+			 {
+			      if(!history.pushState) return; // pushState()無定義 不做處理
+				  var url = "#" + state.state_name;
+				  history.pushState(state,state.title,url);
+			 }			 
+			 
+			 function popState(event)
+			 {			     
+			     if(event.state){
+					state = event.state;
+					displayState(state);
+				 }
+				 else
+				 {
+				    //第一次進入頁面，則替換成自訂狀態內容
+				    history.replaceState(state,state.title,"#"+state.state_name);					
+				 }
+			 }
+			 
+			 function popLoad()
+			 {			 
+				state = { 
+				    state_name : "index",
+					title : "首頁"					
+				};
+				displayState(state);
+			 }
+			 
+			 function displayState(state)
+			 {
+			    $('#divIndex').css('display','none');
+				$('#divList').css('display','none');
+				$('#divDetail').css('display','none');
+				$('#btnBack').css('visibility','');
+				if(state.state_name=="index")
+				{
+				    $('#divIndex').css('display','');					
+					$('#btnBack').css('visibility','hidden');
+				}
+				if(state.state_name=="List")
+				    $('#divList').css('display','');
+				if(state.state_name=="Detail")
+				    $('#divDetail').css('display','');
+					
+				$('#label').html(state.title);
+			 }	
+		</script>	
+        <style>
+		    .wapper{
+			    width:300px;
+				margin:5px;
+			}	
+			
+			#label{
+			    width:290px;		
+			}
+		
+		    .title{		
+                width:290px;			
+			    height:50px;
+			}
+			
+			.option{
+			    width:290px;
+			    height:195px;
+				cursor:pointer;
+			}
+			
+			.list{
+			    width:290px;
+			    height:130px;
+				cursor:pointer;
+			}
+			
+			.detail{
+			    width:290px;
+			    height:390px;
+			}
+        </style>		
+	</head>
+    <body>	    
+	    <div class="panel panel-primary wapper">
+			<div id="title" class="panel-heading"  style="text-align:center;padding-top:15px">			    
+			    <span id="btnBack" onclick="window.history.back(-1)" style="top:14px;left:10px;position:fixed;font-size:18px;" class="btn btn-primary btn-xs" >Back</span>
+				<span id="label" class="label label-info label-sm" style="font-size:18px" ></span>
+			</div>
+			<div class="panel-body">
+			    <p>...</p>
+			</div>
+			<ul id="divIndex" class="list-group">
+				<li class="list-group-item option" onclick="pushStateClick('List','List')">option1</li>
+				<li class="list-group-item option" onclick="pushStateClick('List','List')">option2</li>
+			</ul>
+			<ul id="divList" class="list-group">
+				<li class="list-group-item list" onclick="pushStateClick('Detail','Detail')">list1</li>
+				<li class="list-group-item list" onclick="pushStateClick('Detail','Detail')">list2</li>
+				<li class="list-group-item list" onclick="pushStateClick('Detail','Detail')">list3</li>
+			</ul>
+			<ul id="divDetail" class="list-group">
+			    <li class="list-group-item detail">
+				<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAErUlEQVR4Xu3YwStscRjG8d8QQnZEFkqyY6NE/n0rlOxkS1ZqrCiFe/udOtPcue6YJ889Gc93Vtz7eo/3eT/9zjl6/X7/V+FDAhMm0APMhElR1iQAGCBICQBGiotiwGBASgAwUlwUAwYDUgKAkeKiGDAYkBIAjBQXxYDBgJQAYKS4KAYMBqQEACPFRTFgMCAlABgpLooBgwEpAcBIcVEMGAxICQBGiotiwGBASgAwUlwUAwYDUgKAkeKiGDAYkBIAjBQXxYDBgJQAYKS4KAYMBqQEACPFRTFgMCAlABgpLooBgwEpAcBIcVEMGAxICQBGiotiwGBASgAwUlwUAwYDUgKAkeKiGDAYkBIAjBQXxYDBgJQAYKS4KAYMBqQEACPFRTFgMCAlABgpLooBgwEpAcBIcVEMGAxICQBGiotiwGBASgAwUlwUAwYDUgKAkeKiGDAYkBIAjBQXxYDBgJQAYKS4KAYMBqQEACPFRTFgMCAlABgpLooBgwEpgakH8/7+Xs7Ozsrz83M5OTkpi4uLfwRwd3dXbm5uyvr6etnf32/+r9/vl6urq1J/tn729vbKxsbGRMF1fb2JfqkOi6YazOvrazk9PS1vb2+l1+v9BaZd7tPT0wBM+zNLS0vl6OioXF5eNtjq13Nzc2Oj7/p6HTqY+FJTC2Z4eXXaj8BcX1+Xh4eHUmvX1taaE6Y9cba3t8vOzs7g+3rKzM/PNyfP8vJyA6j+/P39fXMCra6uDnC6rjfpqTbxNjsonGowFxcX5eDgYHBKDN+S2tvO1tZWub29/RRMC6ieOI+Pj+X4+Licn5+X9iSq6P7H9TrYsfUSUwumTeGjZ4r232ZmZsru7m5zarQnTHtqjJ4w7feT3naGn5m+cj3rNjto9iPBDN9K2tvMZ7ekFkzNvJ4y9YQaflAeB/Sr1+tgz7ZL/DgwCwsLzVtTfdAd/aysrJTNzc3mremjZ5j6TNHeyuoD8MvLy19vUKMn2levZ9tkR41+HJjR1+oWQHvCjHtLmp2dbbDVt67Dw8PmpKlfD79BffZarVzvs7eyjgxIl4kDM+7vMP96vhm+Nalgxl1P2tQ3KZ56MN8kx5hfAzAxq/YMChhPjjFdABOzas+ggPHkGNMFMDGr9gwKGE+OMV0AE7Nqz6CA8eQY0wUwMav2DAoYT44xXQATs2rPoIDx5BjTBTAxq/YMChhPjjFdABOzas+ggPHkGNMFMDGr9gwKGE+OMV0AE7Nqz6CA8eQY0wUwMav2DAoYT44xXQATs2rPoIDx5BjTBTAxq/YMChhPjjFdABOzas+ggPHkGNMFMDGr9gwKGE+OMV0AE7Nqz6CA8eQY0wUwMav2DAoYT44xXQATs2rPoIDx5BjTBTAxq/YMChhPjjFdABOzas+ggPHkGNMFMDGr9gwKGE+OMV0AE7Nqz6CA8eQY0wUwMav2DAoYT44xXQATs2rPoIDx5BjTBTAxq/YMChhPjjFdABOzas+ggPHkGNMFMDGr9gwKGE+OMV0AE7Nqz6CA8eQY0wUwMav2DAoYT44xXQATs2rPoIDx5BjTBTAxq/YMChhPjjFdABOzas+ggPHkGNMFMDGr9gz6G1HzSbXtC7t7AAAAAElFTkSuQmCC" alt="..." class="img-rounded">
+				</li>
+			</ul>
+        </div>		
+	</body>
+</html>
