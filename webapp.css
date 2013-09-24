@@ -1,0 +1,30 @@
+.wapper{
+	width:300px;
+	margin:5px;
+}	
+
+#label{
+	width:290px;		
+}
+
+.title{		
+	width:290px;			
+	height:50px;
+}
+
+.option{
+	width:290px;
+	height:195px;
+	cursor:pointer;
+}
+
+.list{
+	width:290px;
+	height:130px;
+	cursor:pointer;
+}
+
+.detail{
+	width:290px;
+	height:390px;
+}
