@@ -1,0 +1,23 @@
+<html lang="en" ng-app="apps">
+    <head>
+	    <title>Web App Test</title>
+		<!-- Bootstrap core CSS -->
+		<link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">
+		<link href="webapp.css" rel="stylesheet">
+		<script src="http://code.angularjs.org/1.2.0-rc.2/angular.min.js"></script>
+		<script src="http://code.angularjs.org/1.2.0-rc.2/angular-animate.min.js"></script>
+		<script src="http://code.angularjs.org/1.2.0-rc.2/angular-route.min.js"></script>	    
+		<script src="app.js"></script>	
+	</head>
+    <body>	    
+	    <div class="panel panel-primary wapper" ng-controller="HomeCntl as main">
+			<div id="title" class="panel-heading"  style="text-align:center;padding-top:15px">			    
+			    <span id="btnBack" onclick="window.history.back(-1)" style="top:14px;left:10px;position:fixed;font-size:18px;" class="btn btn-primary btn-xs" >Back</span>
+				<span id="label" class="label label-info label-sm" style="font-size:18px" >HOME</span>				
+			</div>
+            <a href="test/List">List</a> |<a href="test/Detail">Detail</a> |
+			<div ng-view>
+			</div>
+        </div>		
+	</body>
+</html>
